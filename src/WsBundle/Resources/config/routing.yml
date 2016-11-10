@@ -1,0 +1,3 @@
+ws_doctor:
+    type: rest
+    resource: WsBundle\Controller\DoctorController

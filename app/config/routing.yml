@@ -1,0 +1,11 @@
+doctoubib_models:
+    resource: "@DoctoubibModelsBundle/Resources/config/routing.yml"
+    prefix:   /
+
+ws:
+    resource: "@WsBundle/Resources/config/routing.yml"
+    prefix:   /
+
+NelmioApiDocBundle:
+    resource: "@NelmioApiDocBundle/Resources/config/routing.yml"
+    prefix:   /api/doc
