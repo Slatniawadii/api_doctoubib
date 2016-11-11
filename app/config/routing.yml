@@ -1,3 +1,15 @@
+doctoubib_models_doctor:
+    resource: "@DoctoubibModelsBundle/Controller/DoctorController.php"
+    type:     annotation
+
+doctoubib_models_insurance:
+    resource: "@DoctoubibModelsBundle/Controller/InsuranceController.php"
+    type:     annotation
+
+doctoubib_models_speciality:
+    resource: "@DoctoubibModelsBundle/Controller/SpecialityController.php"
+    type:     annotation
+
 doctoubib_models:
     resource: "@DoctoubibModelsBundle/Resources/config/routing.yml"
     prefix:   /

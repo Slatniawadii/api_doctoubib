@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Insurances list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for insurance in insurances %}
+            <tr>
+                <td><a href="{{ path('insurance_show', { 'id': insurance.id }) }}">{{ insurance.id }}</a></td>
+                <td>{{ insurance.name }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('insurance_show', { 'id': insurance.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('insurance_edit', { 'id': insurance.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('insurance_new') }}">Create a new insurance</a>
+        </li>
+    </ul>
+{% endblock %}

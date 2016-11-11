@@ -8,6 +8,7 @@ use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use FOS\RestBundle\Controller\Annotations\View;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 
 class DoctorController extends Controller
@@ -51,20 +52,27 @@ class DoctorController extends Controller
 
     /**
      *
-     * @ApiDoc(
-     *  section = "Doctor",
-     *  resource=true,
-     *  description="This is a description of your API method",
-     * )
      *
-     * @param ParamFetcher $paramFetcher
+     *  @ApiDoc(
+     *   description="Créé un nouveau contact",
+     *   input="Doctoubib\ModelsBundle\Form\Type\DoctorType",
+     *   output="Doctoubib\ModelsBundle\Entity\Doctor",
+     *   section="Doctor",
+     *   statusCodes={
+     *     201="Client créé",
+     *     400="Paramètres incorrects",
+     *     500="Erreur interne"
+     *   }
+     * )
+     * @param Request $request
      * @return array
      * @View()
      *
      */
-    public function postDoctorAction(ParamFetcher $paramFetcher)
+    public function postDoctorAction(Request $request)
     {
-        return array('doctor' => array());
+        $params = $request->request->all();
+        return $this->get('aramis.object.service.contact')->save($params);
     }
 
 }
