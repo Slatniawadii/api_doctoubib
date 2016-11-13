@@ -27,9 +27,9 @@ class DoctorController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $users = $em->getRepository('DoctoubibModelsBundle:Doctor')->findAll();
+        $doctors = $em->getRepository('DoctoubibModelsBundle:Doctor')->findAll();
 
-        return array('users' => $users);
+        return $doctors;
     }
 
     /**
