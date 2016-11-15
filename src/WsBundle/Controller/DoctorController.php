@@ -38,6 +38,7 @@ class DoctorController extends FOSRestController
      * @Rest\QueryParam(name="slug", nullable=true, description="doctor slug")
      * @Rest\QueryParam(name="region", nullable=true, description="doctor region")
      * @Rest\QueryParam(name="speciality", nullable=true, description="doctor speciality")
+     * @Rest\QueryParam(name="lastanme_first_letter", nullable=true, description="lastname first letter")
      * @Rest\View()
      *
      * @param ParamFetcher $paramFetcher
