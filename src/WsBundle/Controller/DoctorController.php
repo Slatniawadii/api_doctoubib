@@ -3,16 +3,59 @@
 namespace WsBundle\Controller;
 
 use Doctoubib\ModelsBundle\Entity\Doctor;
+use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Request\ParamFetcher;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use FOS\RestBundle\Controller\Annotations\View;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use FOS\RestBundle\Controller\Annotations as Rest;
 
-
-class DoctorController extends Controller
+/**
+ * Class DoctorController
+ *
+ * @Rest\RouteResource("Doctor")
+ */
+class DoctorController extends FOSRestController
 {
+
+    /**
+     * Retourne la liste des doctors qui répondent aux critères passés en paramètres.
+     *
+     * Tri par nom de docteur ascendant.
+     * 100 résultats maximum.
+     *
+     * @ApiDoc(
+     *   description="Retourne la liste des praticiens",
+     *   section="Doctor",
+     *   statusCodes={
+     *     200="Tout s'est bien passé",
+     *     404="Aucun résultat trouvé",
+     *     500="Erreur interne"
+     *   }
+     * )
+     * @Rest\QueryParam(name="id", nullable=true, description="doctor id")
+     * @Rest\QueryParam(name="slug", nullable=true, description="doctor slug")
+     * @Rest\QueryParam(name="region", nullable=true, description="doctor region")
+     * @Rest\QueryParam(name="speciality", nullable=true, description="doctor speciality")
+     * @Rest\View()
+     *
+     * @param ParamFetcher $paramFetcher
+     * @return mixed
+     */
+    public function cgetAction(ParamFetcher $paramFetcher)
+    {
+        $params = $paramFetcher->all();
+        $em = $this->getDoctrine()->getManager();
+
+        $doctors = $em->getRepository('DoctoubibModelsBundle:Doctor')
+            ->findByCriteria($params);
+
+
+        return $doctors;
+    }
+
+
     /**
      * @ApiDoc(
      *  section = "Doctor",
