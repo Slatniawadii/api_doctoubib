@@ -1,3 +1,7 @@
 ws_doctor:
     type: rest
     resource: WsBundle\Controller\DoctorController
+
+ws_contact:
+    type: rest
+    resource: WsBundle\Controller\ContactController

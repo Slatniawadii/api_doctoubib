@@ -72,7 +72,7 @@ swiftmailer:
 nelmio_api_doc: ~
 
 fos_rest:
-    param_fetcher_listener: true
+    param_fetcher_listener: 'force'
     body_listener: true
     format_listener: true
     view:

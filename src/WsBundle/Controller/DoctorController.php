@@ -116,7 +116,7 @@ class DoctorController extends FOSRestController
     public function postDoctorAction(Request $request)
     {
         $params = $request->request->all();
-        return $this->get('aramis.object.service.contact')->save($params);
+        return $this->get('doctoubib_models.doctors')->save($params);
     }
 
 }
