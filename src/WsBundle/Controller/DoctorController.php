@@ -60,25 +60,6 @@ class DoctorController extends FOSRestController
     /**
      * @ApiDoc(
      *  section = "Doctor",
-     *  resource=true,
-     *  description="Return a collection of doctors",
-     * )
-     *
-     * @return array
-     * @View()
-     */
-    public function getDoctorsAction()
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $doctors = $em->getRepository('DoctoubibModelsBundle:Doctor')->findAll();
-
-        return $doctors;
-    }
-
-    /**
-     * @ApiDoc(
-     *  section = "Doctor",
      *  resource= true,
      *  resource=true,
      *  description="Return a given doctor",
@@ -89,7 +70,7 @@ class DoctorController extends FOSRestController
      * @View()
      * @ParamConverter("doctor", class="DoctoubibModelsBundle:Doctor")
      */
-    public function getDoctorAction(Doctor $doctor)
+    public function getAction(Doctor $doctor)
     {
         return array('doctor' => $doctor);
     }
@@ -113,7 +94,7 @@ class DoctorController extends FOSRestController
      * @View()
      *
      */
-    public function postDoctorAction(Request $request)
+    public function postAction(Request $request)
     {
         $params = $request->request->all();
         return $this->get('doctoubib_models.doctors')->save($params);
