@@ -2,6 +2,10 @@ ws_doctor:
     type: rest
     resource: WsBundle\Controller\DoctorController
 
+ws_speciality:
+    type: rest
+    resource: WsBundle\Controller\SpecialityController
+
 ws_contact:
     type: rest
     resource: WsBundle\Controller\ContactController
