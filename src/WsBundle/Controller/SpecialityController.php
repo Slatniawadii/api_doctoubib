@@ -30,6 +30,7 @@ class SpecialityController extends FOSRestController
      *   }
      * )
      *
+     * @Rest\QueryParam(name="for_form", nullable=true, description="structured data for form type")
      * @Rest\View()
      *
      * @param ParamFetcher $paramFetcher
@@ -37,10 +38,22 @@ class SpecialityController extends FOSRestController
      */
     public function cgetAction(ParamFetcher $paramFetcher)
     {
+        $params = $paramFetcher->all();
+
         $em = $this->getDoctrine()->getManager();
         $specialities = $em->getRepository('DoctoubibModelsBundle:Speciality')
             ->getSpecialities();
 
+        if ($params['for_form']) {
+            $data = array();
+            if (!empty($specialities)) {
+                foreach ($specialities as $speciality) {
+                    $data[$speciality['slug']] = $speciality['name'];
+                }
+            }
+
+            return $data;
+        }
 
         return $specialities;
     }
