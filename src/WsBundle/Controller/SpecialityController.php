@@ -48,7 +48,7 @@ class SpecialityController extends FOSRestController
             $data = array();
             if (!empty($specialities)) {
                 foreach ($specialities as $speciality) {
-                    $data[$speciality['slug']] = $speciality['name'];
+                    $data[$speciality['name']] = $speciality['slug'];
                 }
             }
 
