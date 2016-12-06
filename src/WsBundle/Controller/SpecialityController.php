@@ -37,11 +37,9 @@ class SpecialityController extends FOSRestController
      */
     public function cgetAction(ParamFetcher $paramFetcher)
     {
-        $params = $paramFetcher->all();
         $em = $this->getDoctrine()->getManager();
-
         $specialities = $em->getRepository('DoctoubibModelsBundle:Speciality')
-            ->findAll($params);
+            ->getSpecialities();
 
 
         return $specialities;
