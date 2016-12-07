@@ -9,3 +9,8 @@ ws_speciality:
 ws_contact:
     type: rest
     resource: WsBundle\Controller\ContactController
+
+
+ws_region:
+    type: rest
+    resource: WsBundle\Controller\RegionController

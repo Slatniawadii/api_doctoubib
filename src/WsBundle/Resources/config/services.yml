@@ -1,4 +1,7 @@
 services:
-#    ws.example:
-#        class: WsBundle\Example
-#        arguments: ["@service_id", "plain_value", "%parameter%"]
+    ws_bundle.listener.response:
+        class: WsBundle\Listener\ResponseListener
+        arguments:
+            - "@router"
+        tags:
+            - { name: kernel.event_subscriber }
