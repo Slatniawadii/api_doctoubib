@@ -42,7 +42,7 @@ class RegionController extends FOSRestController
 
         $em = $this->getDoctrine()->getManager();
         $specialities = $em->getRepository('DoctoubibModelsBundle:Region')
-            ->getSpecialities();
+            ->getRegions();
 
         if ($params['for_form']) {
             $data = array();
