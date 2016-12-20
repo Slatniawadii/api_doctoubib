@@ -11,6 +11,7 @@ use FOS\RestBundle\Request\ParamFetcher;
 use FOS\RestBundle\Controller\Annotations\QueryParam;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use FOS\RestBundle\View\View;
 
 /**
  * Class ContactController
@@ -30,7 +31,7 @@ class ContactController extends FOSRestController
      */
     public function getAction($id)
     {
-        return $this->render('', array('name' => $id));
+        //return $this->render('', array('name' => $id));
     }
 
     /**
@@ -40,7 +41,7 @@ class ContactController extends FOSRestController
      */
     public function cgetAction()
     {
-
+        //
     }
 
     /**
@@ -58,6 +59,8 @@ class ContactController extends FOSRestController
      * @Rest\QueryParam(name="subject", nullable=false, description="Subject")
      *
      * @Rest\View()
+     *
+     * @return View
      */
     public function postAction(Request $request)
     {
