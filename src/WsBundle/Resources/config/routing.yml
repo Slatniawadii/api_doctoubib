@@ -10,7 +10,10 @@ ws_contact:
     type: rest
     resource: WsBundle\Controller\ContactController
 
-
 ws_region:
     type: rest
     resource: WsBundle\Controller\RegionController
+
+ws_sponsorship:
+    type: rest
+    resource: WsBundle\Controller\SponsorshipController
