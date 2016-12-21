@@ -62,8 +62,9 @@ class SponsorshipController extends FOSRestController
      */
     public function postAction(Request $request)
     {
+        $params = $request->request->all();
+
         try {
-            $params = $request->query->all();
             $this->get('doctoubib_models.sponsorship')->save($params);
         } catch (Exception $e) {
             throw new BadRequestHttpException($e->getMessage());
