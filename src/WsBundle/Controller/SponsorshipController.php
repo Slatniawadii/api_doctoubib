@@ -53,8 +53,8 @@ class SponsorshipController extends FOSRestController
      *
      * @Rest\RequestParam(name="username", nullable=false, description="Firstname & Lastname")
      * @Rest\RequestParam(name="email", nullable=true, description="Email")
-     * @Rest\RequestParam(name="doctor_name", nullable=false, description="Doctor name")
-     * @Rest\RequestParam(name="region", nullable=true, description="Region ID")
+     * @Rest\RequestParam(name="doctorName", nullable=false, description="Doctor name")
+     * @Rest\RequestParam(name="region", nullable=false, description="Region ID")
      *
      * @Rest\View()
      *
