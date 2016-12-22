@@ -51,12 +51,10 @@ class ContactController extends FOSRestController
      *     section="Contact"
      * )
      *
-     * @Rest\QueryParam(name="firstname", nullable=false, description="Firstname")
-     * @Rest\QueryParam(name="lastname", nullable=false, description="Lastname")
-     * @Rest\QueryParam(name="email", nullable=false, description="Email")
-     * @Rest\QueryParam(name="phone", nullable=true, description="Phone number")
-     * @Rest\QueryParam(name="message", nullable=false, description="Message")
      * @Rest\QueryParam(name="subject", nullable=false, description="Subject")
+     * @Rest\RequestParam(name="username", nullable=false, description="Name")
+     * @Rest\QueryParam(name="email", nullable=false, description="Email")
+     * @Rest\QueryParam(name="message", nullable=false, description="Message")
      *
      * @Rest\View()
      *
