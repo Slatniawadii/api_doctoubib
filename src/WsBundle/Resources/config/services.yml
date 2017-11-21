@@ -1,7 +1,0 @@
-services:
-    ws_bundle.listener.response:
-        class: WsBundle\Listener\ResponseListener
-        arguments:
-            - "@router"
-        tags:
-            - { name: kernel.event_subscriber }

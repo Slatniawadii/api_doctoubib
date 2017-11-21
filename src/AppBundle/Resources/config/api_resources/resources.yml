@@ -1,0 +1,7 @@
+# src/AppBundle/Resources/config/api_resources/resources.yml
+resources:
+    AppBundle\Entity\Doctor: ~
+    AppBundle\Entity\Office: ~
+    AppBundle\Entity\Schedule: ~
+    AppBundle\Entity\Speciality: ~
+    AppBundle\Entity\Association: ~
