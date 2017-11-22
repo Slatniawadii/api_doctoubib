@@ -624,6 +624,7 @@ class Doctor
     public function getPrincipalOfficeAddress()
     {
         $office = $this->getPrincipalOffice();
+        $address = null;
         if ($office) {
             $address = $office->getAddress();
             if ($office->getRegion()) {
