@@ -5,3 +5,4 @@ resources:
     AppBundle\Entity\Schedule: ~
     AppBundle\Entity\Speciality: ~
     AppBundle\Entity\Association: ~
+    AppBundle\Entity\ContactMessage: ~
