@@ -1,16 +1,17 @@
 fos_elastica:
-    clients:
-        default: { host: localhost, port: 9200 }
     indexes:
-        search:
-            finder: ~
-            client: default
+        app:
             types:
                 office:
                     mappings:
-                        id:
+                        name: ~
+                        slug: ~
+                        address: ~
                     persistence:
+                        # the driver can be orm, mongodb, phpcr or propel
+                        # listener and finder are not supported by
+                        # propel and should be removed
                         driver: orm
                         model: AppBundle\Entity\Office
                         provider: ~
-                        listener: ~
+                        finder: ~
