@@ -1,0 +1,16 @@
+fos_elastica:
+    clients:
+        default: { host: localhost, port: 9200 }
+    indexes:
+        search:
+            finder: ~
+            client: default
+            types:
+                office:
+                    mappings:
+                        id:
+                    persistence:
+                        driver: orm
+                        model: AppBundle\Entity\Office
+                        provider: ~
+                        listener: ~
