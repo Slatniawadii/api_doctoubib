@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -19,9 +20,21 @@ class Office
     const TYPE_PRIVATE_CLINIC = 30;
     const TYPE_DENTAL_CLINIC = 40;
     const TYPE_NURSING = 50;
-    const TYPE_HELTH_CENTER = 60;
+    const TYPE_HEALTH_CENTER = 60;
     const TYPE_LABORATORY = 70;
     const TYPE_PARAMEDICAL = 80;
+
+    public static $officeType = [
+        self::TYPE_OFFICE_DOCTOR => 'Cabinet',
+        self::TYPE_HOSPITAL => 'Hopital',
+        self::TYPE_CLINIC => 'Clinique',
+        self::TYPE_PRIVATE_CLINIC => 'Clinique privé',
+        self::TYPE_DENTAL_CLINIC => 'Cabinet dentaire',
+        self::TYPE_NURSING => 'Cabinet',
+        self::TYPE_HEALTH_CENTER => 'Centre medical',
+        self::TYPE_LABORATORY => 'Laboratoire',
+        self::TYPE_PARAMEDICAL => 'Paramedical',
+    ];
 
     /**
      * @var int
@@ -116,7 +129,7 @@ class Office
     private $paymentMeans;
 
     /**
-     * @var bool
+     * @var string
      *
      * @ORM\Column(name="opening_hours", type="text", nullable=true)
      */
@@ -158,10 +171,17 @@ class Office
 
     /**
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Doctor", inversedBy="offices")
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Doctor", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
-    private $doctor;
+    private $doctors;
+
+    /**
+     * @Gedmo\Slug(fields={"firstname", "lastname"})
+     * @ORM\Column(length=128, unique=true)
+     */
+    private $slug;
+
 
     /**
      * @var string
@@ -170,9 +190,27 @@ class Office
      */
     private $type;
 
+    /**
+     * @var bool
+     *
+     * @ORM\Column(type="boolean", options={"default":false})
+     */
+    private $isSponsored;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(type="boolean", options={"default":false})
+     */
+    private $isEnabled;
+
+    /**
+     * Office constructor.
+     */
     public function __construct()
     {
         $this->paymentMeans = new ArrayCollection();
+        $this->doctors = new ArrayCollection();
         $this->type = self::TYPE_OFFICE_DOCTOR;
     }
 
@@ -496,15 +534,15 @@ class Office
     }
     
     /**
-     * @return boolean
+     * @return string
      */
-    public function isOpeningHours()
+    public function getOpeningHours()
     {
         return $this->openingHours;
     }
 
     /**
-     * @param boolean $openingHours
+     * @param string $openingHours
      * @return Office
      */
     public function setOpeningHours($openingHours)
@@ -514,21 +552,30 @@ class Office
     }
     
     /**
-     * @return mixed
+     * @return Doctor
      */
-    public function getDoctor()
+    public function getDoctors()
     {
-        return $this->doctor;
+        return $this->doctors;
     }
 
     /**
-     * @param mixed $doctor
+     * @param Doctor $doctor
      * @return Office
      */
-    public function setDoctor($doctor)
+    public function addDoctor(Doctor $doctor)
     {
-        $this->doctor = $doctor;
+        $this->doctors[] = $doctor;
         return $this;
+    }
+
+    /**
+     * @param Doctor $doctor
+     * @return Office
+     */
+    public function removeDoctor(Doctor $doctor)
+    {
+        $this->doctors->removeElement($doctor);
     }
 
     /**
@@ -600,6 +647,90 @@ class Office
     public function setLatitude($latitude)
     {
         $this->latitude = $latitude;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @param mixed $slug
+     * @return Doctor
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param string $type
+     * @return Office
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTypeText()
+    {
+        if ($this->getType() == self::TYPE_OFFICE_DOCTOR && count($this->getDoctors()) == 1) {
+            return $this->getDoctors()[0]->getSpecialities()[0]->getName();
+        } else {
+            return self::$officeType[$this->getType()];
+        }
+    }
+
+    /**
+     * @return bool
+     */
+    public function isSponsored()
+    {
+        return $this->isSponsored;
+    }
+
+    /**
+     * @param bool $isSponsored
+     * @return Office
+     */
+    public function setIsSponsored($isSponsored)
+    {
+        $this->isSponsored = $isSponsored;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isEnabled()
+    {
+        return $this->isEnabled;
+    }
+
+    /**
+     * @param bool $isEnabled
+     * @return Office
+     */
+    public function setIsEnabled($isEnabled)
+    {
+        $this->isEnabled = $isEnabled;
         return $this;
     }
 }

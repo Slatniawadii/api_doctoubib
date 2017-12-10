@@ -2,6 +2,7 @@
 
 namespace AppBundle\Repository;
 
+
 /**
  * OfficeRepository
  *
@@ -10,4 +11,12 @@ namespace AppBundle\Repository;
  */
 class OfficeRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function createIndex()
+    {
+        $qb = $this->createQueryBuilder('o');
+        $qb->select(array( 'o', 'd'))
+            ->join('o.doctor', 'd');
+
+        return $qb;
+    }
 }

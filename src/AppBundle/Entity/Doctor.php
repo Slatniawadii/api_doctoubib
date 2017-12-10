@@ -154,9 +154,13 @@ class Doctor
     private $languages;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Office", mappedBy="doctor", cascade={"persist"})
+     * @var string
+     *
+     * @ORM\Column(type="time", nullable=true)
      */
-    private $offices;
+    private $waitingTime;
+
+    private $schedule;
 
     public function __construct()
     {
@@ -167,7 +171,6 @@ class Doctor
         $this->publications = new ArrayCollection();
         $this->associations = new ArrayCollection();
         $this->languages = new ArrayCollection();
-        $this->offices = new ArrayCollection();
     }
 
     /**
@@ -595,47 +598,39 @@ class Doctor
         return $this->languages;
     }
 
-    public function addOffice(Office $office)
+    /**
+     * @return string
+     */
+    public function getWaitingTime()
     {
-        $this->offices[] = $office;
+        return $this->waitingTime;
+    }
 
+    /**
+     * @param string $waitingTime
+     * @return Doctor
+     */
+    public function setWaitingTime($waitingTime)
+    {
+        $this->waitingTime = $waitingTime;
         return $this;
     }
 
-    public function removeOffice(Office $office)
+    /**
+     * @return mixed
+     */
+    public function getSchedule()
     {
-        $this->offices->removeElement($office);
+        return $this->schedule;
     }
 
-    public function getOffices()
+    /**
+     * @param mixed $schedule
+     * @return Doctor
+     */
+    public function setSchedule($schedule)
     {
-        return $this->offices;
-    }
-
-    public function getPrincipalOffice()
-    {
-        if (!empty($this->offices)) {
-            return $this->offices->first();
-        }
-
-        return null;
-    }
-
-    public function getPrincipalOfficeAddress()
-    {
-        $office = $this->getPrincipalOffice();
-        $address = null;
-        if ($office) {
-            $address = $office->getAddress();
-            if ($office->getRegion()) {
-                $address .= ', ' . $office->getRegion()->getName();
-            }
-
-            if ($office->getCity()) {
-                $address .= ', ' . $office->getCity()->getName();
-            }
-        }
-
-        return $address;
+        $this->schedule = $schedule;
+        return $this;
     }
 }

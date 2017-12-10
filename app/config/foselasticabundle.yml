@@ -6,14 +6,91 @@ fos_elastica:
             types:
                 office:
                     mappings:
-                        name: ~
+                        id: ~
+                        name:
+                            type: string
+                            index: not_analyzed
+                            copy_to: [tags]
                         slug: ~
                         address: ~
+                        typeText: ~
+                        isSponsored:
+                            type: boolean
+                            index: not_analyzed
+                        isEnabled: ~
+                        city:
+                            type: object
+                            properties:
+                                id:
+                                    type: string
+                                    index: not_analyzed
+                                name:
+                                    type: string
+                                    index: not_analyzed
+                                    copy_to: [tags]
+                        region:
+                            type: object
+                            properties:
+                                id:
+                                    type: string
+                                    index: not_analyzed
+                                name:
+                                    type: string
+                                    index: not_analyzed
+                                    copy_to: [tags]
+                                slug:
+                                    type: string
+                                    index: not_analyzed
+                                    copy_to: [tags]
+                        doctors:
+                            type: object
+                            properties:
+                                id:
+                                    type: string
+                                    index: not_analyzed
+                                insurance:
+                                    type: boolean
+                                    index: not_analyzed
+                                firstname:
+                                    type: string
+                                    index: not_analyzed
+                                    copy_to: [tags]
+                                lastname:
+                                    type: string
+                                    index: not_analyzed
+                                    copy_to: [tags]
+                                slug:
+                                    type: string
+                                    index: not_analyzed
+                                    copy_to: [tags]
+                                schedule: ~
+                                waitingTime:
+                                    type: date
+                                    index: not_analyzed
+                                languages:
+                                    type: object
+                                    properties:
+                                        name:
+                                            type: string
+                                            index: not_analyzed
+                                            copy_to: [tags]
+                                specialities:
+                                    type: object
+                                    properties:
+                                        id:
+                                            type: string
+                                            index: not_analyzed
+                                        name:
+                                            type: string
+                                            index: not_analyzed
+                                            copy_to: [tags]
+                                        slug:
+                                            type: string
+                                            index: not_analyzed
+                                            copy_to: [tags]
                     persistence:
-                        # the driver can be orm, mongodb, phpcr or propel
-                        # listener and finder are not supported by
-                        # propel and should be removed
                         driver: orm
                         model: AppBundle\Entity\Office
-                        provider: ~
                         finder: ~
+                        provider: ~
+                        listener: ~
