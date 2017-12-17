@@ -5,4 +5,9 @@ app:
 api:
     resource: '.'
     type: 'api_platform'
-    prefix: '/api'
+
+api_login_check:
+    path: /api/login_check
+
+fos_user_security:
+    resource: "@FOSUserBundle/Resources/config/routing/security.xml"

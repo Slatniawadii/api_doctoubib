@@ -2,12 +2,18 @@
 
 namespace AppBundle\Entity;
 
-use FOS\UserBundle\Model\User as BaseUser;
+use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
+use FOS\UserBundle\Model\User as BaseUser;
+use FOS\UserBundle\Model\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="doctor_user")
+ * @ApiResource(attributes={
+ *     "normalization_context"={"groups"={"user", "user-read"}},
+ *     "denormalization_context"={"groups"={"user", "user-write"}}
+ * })
  */
 class User extends BaseUser
 {
@@ -19,34 +25,14 @@ class User extends BaseUser
     protected $id;
 
     /**
-     * @var
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Doctor", mappedBy="user")
+     * @Groups({"user-write"})
      */
-    private $doctor;
-
-
-    public function __construct()
-    {
-        parent::__construct();
-    }
+    protected $plainPassword;
 
     /**
-     * @return mixed
+     * @Groups({"user"})
      */
-    public function getDoctor()
-    {
-        return $this->doctor;
-    }
-
-    /**
-     * @param mixed $doctor
-     * @return User
-     */
-    public function setDoctor(Doctor $doctor)
-    {
-        $this->doctor = $doctor;
-        return $this;
-    }
+    protected $username;
 
     public function setEmail($email)
     {
@@ -55,5 +41,14 @@ class User extends BaseUser
         parent::setUsername($email);
 
         return $this;
+    }
+
+    /**
+     * @param UserInterface|null $user
+     * @return bool
+     */
+    public function isUser(UserInterface $user = null)
+    {
+        return $user instanceof self && $user->id === $this->id;
     }
 }
