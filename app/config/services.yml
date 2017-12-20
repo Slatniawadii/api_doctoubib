@@ -37,3 +37,7 @@ services:
 
     app.elastica_transformer:
         class:     AppBundle\Service\ElasticaTransformer
+
+
+    'AppBundle\DataProvider\IndexCollectionDataProvider':
+        tags: [ { name: 'api_platform.collection_data_provider', priority: 2 } ]

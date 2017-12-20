@@ -84,6 +84,15 @@ api_platform:
     swagger:
          api_keys:
              - { name: 'Authorization', type: 'header' }
+    formats:
+        json:
+            mime_types: ['application/json']
+
+        jsonld:
+            mime_types: ['application/ld+json']
+
+        html:
+            mime_types: ['text/html']
 
 
 lexik_jwt_authentication:

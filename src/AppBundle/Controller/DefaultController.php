@@ -2,28 +2,34 @@
 
 namespace AppBundle\Controller;
 
-use ApiPlatform\Core\Annotation\ApiResource;
-use ApiPlatform\Core\Annotation\ApiProperty;
-
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Serializer\Serializer;
 
 class DefaultController extends Controller
 {
     /**
-     * @Route("/api/index/{q}", name="homepage")
-     *
+     * @Route("/api/index/_search", name="homepage")
+     * @Method({"POST"})
      */
-    public function indexAction(Request $request, $q)
+    public function indexAction(Request $request)
     {
-        $finder = $this->container->get('fos_elastica.finder.app.office');
+        $requestPayload = $request->getContent();
 
-// Option 1. Returns all users who have example.net in any of their mapped fields
-        $results = $finder->find('Chaari');
+        $elasticsearchHost = $this->getParameter('fos_elastica.host').':'. $this->getParameter('fos_elastica.port');
+        $ch = curl_init();
 
-        return new JsonResponse(json_encode($results));
+        curl_setopt($ch, CURLOPT_URL,$elasticsearchHost."/app/_search");
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $requestPayload);
+
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+        $server_output = curl_exec ($ch);
+
+        curl_close ($ch);
+
+        return new \Symfony\Component\HttpFoundation\Response($server_output);
     }
 }
