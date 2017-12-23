@@ -11,7 +11,6 @@ class DefaultController extends Controller
 {
     /**
      * @Route("/api/index/_search", name="homepage")
-     * @Method({"POST", "OPTIONS"})
      */
     public function indexAction(Request $request)
     {
